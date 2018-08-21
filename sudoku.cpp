@@ -2,15 +2,11 @@
 
 using namespace std;
 
-bool check(char a[10][10],int *row,int *col)
-{
+bool check(char a[10][10],int *row,int *col) {
     int i,j;
-    for(i=0;i<9;i++)
-    {
-        for(j=0;j<9;j++)
-        {
-            if(a[i][j]=='x')
-            {
+    for(i=0;i<9;i++) {
+        for(j=0;j<9;j++) {
+            if(a[i][j]=='x') {
                 *row=i;
                 *col=j;
                 return false;
@@ -20,21 +16,17 @@ bool check(char a[10][10],int *row,int *col)
     return true;
 }
 
-bool issafe(char a[10][10],char n,int row,int col)
-{
+bool issafe(char a[10][10],char n,int row,int col) {
     int i,j;
     //column checking
-    for(i=0;i<9;i++)
-    {
+    for(i=0;i<9;i++) {
         if(a[row][i]==n) {
             return false;
         }
     }
     //row checking
-    for(i=0;i<9;i++)
-    {
-        if(a[i][col]==n)
-        {
+    for(i=0;i<9;i++) {
+        if(a[i][col]==n) {
             return false;
         }
     }
@@ -42,26 +34,20 @@ bool issafe(char a[10][10],char n,int row,int col)
 }
 
 
-bool sudoku(char a[10][10],int row,int col)
-{
+bool sudokuChecking(char a[10][10],int row,int col) {
+
    int i;
-   if(check(a,&row,&col))
-   {
+   if(check(a,&row,&col)) {
        return true;
    }
 
-   for(i=1;i<=9;i++)
-   {
-       if(issafe(a,i+'0',row,col))
-       {
+   for(i=1;i<=9;i++) {
+       if(issafe(a,i+'0',row,col)) {
            a[row][col]=i+'0';
-           printf("change %c\n", a[row][col]);
-           if(sudoku(a,row,col))
-           {
+           if(sudokuChecking(a,row,col)) {
                return true;
            }
-           else
-           {
+           else {
                  a[row][col]='x';
            }
        }
@@ -70,24 +56,20 @@ bool sudoku(char a[10][10],int row,int col)
 }
 
 
-int main()
-{
+int main() {
+
     int i,j;
     char a[10][10];
-    for(i=0;i<9;i++)
-    {
-        for(j=0;j<9;j++)
-        {
+    for(i=0;i<9;i++) {
+        for(j=0;j<9;j++) {
             cin>>a[i][j];
         }
     }
 
-    sudoku(a,0,0);
+    sudokuChecking(a,0,0);
 
-    for(i=0;i<9;i++)
-    {
-        for(j=0;j<9;j++)
-        {
+    for(i=0;i<9;i++) {
+        for(j=0;j<9;j++) {
             cout<<a[i][j]<<' ';
         }
         cout<<'\n';
